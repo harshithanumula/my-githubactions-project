@@ -1,20 +1,5 @@
-# Use the official Node.js image
-FROM node:16-alpine
- 
-# Set the working directory
-WORKDIR /app
- 
-# Copy package.json and package-lock.json
-COPY package*.json ./
- 
-# Install dependencies
-RUN npm install
- 
-# Copy the rest of the application code
-COPY . .
- 
-# Expose the application port
-EXPOSE 3000
- 
-# Start the application
-CMD ["npm", "start"]
+FROM openjdk:8-jre-alpine
+EXPOSE 8080
+COPY ./build/libs/my-app-1.0-SNAPSHOT.jar /usr/app/
+WORKDIR /usr/app
+ENTRYPOINT ["java", "-jar", "my-app-1.0-SNAPSHOT.jar"]
